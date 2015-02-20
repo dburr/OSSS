@@ -159,24 +159,24 @@ if [ ! -f /home/motion/server.js ]; then
   sudo chown motion:motion /home/motion/run_server.sh
   sudo chmod 755 /home/motion/run_server.sh
 fi
-crontab -l > /tmp/crontab.$$ 2>&1
-if [ $? -ne 0 ]; then
-  NEEDS_CRONTAB="YES"
-elif ! grep -q SMB_BACKUP /tmp/crontab.$$; then
-  NEEDS_CRONTAB="YES"
-else
-  NEEDS_CRONTAB="NO"
-fi
-if [ "$NEEDS_CRONTAB" = "YES" ]; then
-  echo "*** setting up backup script ***"
-  crontab -l > /tmp/cron.$$ 2>/dev/null
-  cat << _EOF_CRON_ >> /tmp/cron.$$
-#SMB_BACKUP
-0 * * * * /home/pi/sync_osss_files
-_EOF_CRON_
-  crontab /tmp/cron.$$
-  rm -f /tmp/cron.$$
-fi
+#crontab -l > /tmp/crontab.$$ 2>&1
+#if [ $? -ne 0 ]; then
+#  NEEDS_CRONTAB="YES"
+#elif ! grep -q SMB_BACKUP /tmp/crontab.$$; then
+#  NEEDS_CRONTAB="YES"
+#else
+#  NEEDS_CRONTAB="NO"
+#fi
+#if [ "$NEEDS_CRONTAB" = "YES" ]; then
+#  echo "*** setting up backup script ***"
+#  crontab -l > /tmp/cron.$$ 2>/dev/null
+#  cat << _EOF_CRON_ >> /tmp/cron.$$
+##SMB_BACKUP
+#0 * * * * /home/pi/sync_osss_files
+#_EOF_CRON_
+#  crontab /tmp/cron.$$
+#  rm -f /tmp/cron.$$
+#fi
 # run server at boot
 if ! grep -q RUN_MOTION_SERVER /etc/rc.local; then
   echo "*** enabling motion web server at boot ***"
